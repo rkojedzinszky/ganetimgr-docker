@@ -1,0 +1,18 @@
+---
+version: "2"
+services:
+  memcached:
+    image: memcached
+  ganetimgr:
+    image: rkojedzinszky/ganetimgr-docker
+    volumes:
+      - "${DATA}/ganetimgr/data:/data"
+    ports:
+      - "8080:80"
+    environment:
+      BRANDING_NAME: 'Company'
+      BRANDING_URL: 'http://www.company.com/'
+      NOVNC_PROXY: 'vnc-proxy.company.com:24999'
+      NOVNC_PROXY_AUTH_USER: 'novnc-user'
+      NOVNC_PROXY_AUTH_PASSWORD: 'novnc-pass'
+    hostname: ganetimgr.company.com
