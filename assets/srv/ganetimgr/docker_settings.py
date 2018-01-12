@@ -23,6 +23,8 @@ CACHES = {
 }
 
 NOVNC_PROXY = os.getenv('NOVNC_PROXY','vncauthproxy:8888')
+NOVNC_PROXY_AUTH_USER = os.getenv('NOVNC_PROXY_AUTH_USER', 'novnc')
+NOVNC_PROXY_AUTH_PASSWORD = os.getenv('NOVNC_PROXY_AUTH_PASSWORD', 'novnc')
 
 BRANDING = {
     "SERVICE_PROVIDED_BY": {
