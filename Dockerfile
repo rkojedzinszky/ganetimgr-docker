@@ -22,7 +22,8 @@ RUN apk --no-cache add \
 	uwsgi-python \
 	uwsgi-cheaper_busyness \
 	openssl \
-        python \
+	python \
+	py-yaml \
 	py-gevent \
 	py-setproctitle \
 	py-curl \
