@@ -1,0 +1,19 @@
+---
+version: "2"
+services:
+  memcached:
+    image: memcached
+  ganetimgr:
+    #image: docker.euronetrt.hu/euronet/ganetimgr-alpine
+    build: ./ganetimgr-alpine
+    volumes:
+      - ./data/ganetimgr:/data"
+    ports:
+      - "$HOST_PORT:80"
+    environment:
+      - BRANDING_NAME=$BRANDING_NAME=
+      - BRANDING_URL=$BRANDING_URL=
+      - NOVNC_PROXY=$NOVNC_PROXY=
+      - NOVNC_PROXY_AUTH_USER=$NOVNC_PROXY_AUTH_USER=
+      - NOVNC_PROXY_AUTH_PASSWORD=$NOVNC_PROXY_AUTH_PASSWORD=
+    hostname: ganetimgr.company.com
