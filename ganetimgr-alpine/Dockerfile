@@ -8,7 +8,7 @@ ENV APP_HOME=/srv/ganetimgr APP_USER=ganetimgr
 RUN apk -U upgrade && \
 	apk add --no-cache -t .install-deps curl tar && \
 	mkdir -p ${APP_HOME} && cd ${APP_HOME} && \
-	curl -sL https://git.euronetrt.hu/Euronet/ganetimgr/archive/${GANETIMGR_VERSION}.tar.gz | \
+	curl -u drone:XyyWkbY7r0Eq -sL https://git.euronetrt.hu/Euronet/ganetimgr/archive/${GANETIMGR_VERSION}.tar.gz | \
 	tar xzvf - --strip-components=1 && \
 	apk del .install-deps
 
