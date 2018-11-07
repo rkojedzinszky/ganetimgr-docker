@@ -4,8 +4,8 @@ services:
   memcached:
     image: memcached
   ganetimgr:
-    #image: docker.euronetrt.hu/euronet/ganetimgr-alpine
-    build: ./ganetimgr-alpine
+    image: docker.euronetrt.hu/euronet/ganetimgr-alpine:1.0.0
+    #build: ./ganetimgr-alpine
     volumes:
       - ./data/ganetimgr:/data"
     ports:

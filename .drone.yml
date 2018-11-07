@@ -1,0 +1,12 @@
+pipeline:
+  build:
+    image: plugins/docker
+    repo: docker.euronetrt.hu/euronet/ganetimgr-alpine
+    auto_tag: true
+    registry: docker.euronetrt.hu
+    secrets: [ docker_username, docker_password ]
+    dockerfile: ganetimgr-alpine/Dockerfile
+    context: ganetimgr-alpine/
+    no-cache: true
+    when:
+      event: tag
