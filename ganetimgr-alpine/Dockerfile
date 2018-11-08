@@ -32,6 +32,7 @@ RUN apk add --no-cache \
 # Install additional python modules
 RUN apk add --no-cache -t .build-deps \
 	make gcc libc-dev python2-dev libffi-dev openssl-dev py-pip && \
+	pip install --upgrade pip && \
 	pip install --no-cache-dir --no-compile -U \
 	'django<1.9' 'django-registration-redux<2' paramiko python-daemon \
 	recaptcha-client ipaddr beautifulsoup4 beanstalkc python-memcached \
