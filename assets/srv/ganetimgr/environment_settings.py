@@ -1,30 +1,47 @@
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+# This settings file is used to provide most settings
+# through environment variables
 
 import socket, os
 
-ALLOWED_HOSTS = [socket.gethostname()]
+DEBUG = os.getenv('DEBUG') is not None
+TEMPLATE_DEBUG = DEBUG
 
-SECRET_KEY = os.urandom(32)
+ALLOWED_HOSTS = ['*'] if DEBUG else os.getenv('ALLOWED_HOSTS', '').split(',')
+
+# Change SECRET_KEY to a random value
+SECRET_KEY = os.getenv('SECRET_KEY', 'change-this')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/data/ganetimgr.db',
+        # postgresql db with schema support
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DBNAME', 'ganetimgr'),
+        'HOST': os.getenv('DBHOST', 'postgres'),
+        'USER': os.getenv('DBUSER', 'ganetimgr'),
+        'PASSWORD': os.getenv('DBPASSWORD', 'ganetimgr'),
+        #'SCHEMA': '',
+
+        'CONN_MAX_AGE': None if os.getenv('DBCONNMAXAGE') == '' else int(os.getenv('DBCONNMAXAGE', '0')),
     }
 }
+
+MEMCACHED_HOST = os.getenv('MEMCACHED_HOST', 'memcached')
+MEMCACHED_PORT = os.getenv('MEMCACHED_PORT', '11211')
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-	'LOCATION': 'memcached:11211',
+	'LOCATION': '{}:{}'.format(MEMCACHED_HOST, MEMCACHED_PORT),
     }
 }
 
 NOVNC_PROXY = os.getenv('NOVNC_PROXY','vncauthproxy:8888')
 NOVNC_PROXY_AUTH_USER = os.getenv('NOVNC_PROXY_AUTH_USER', 'novnc')
 NOVNC_PROXY_AUTH_PASSWORD = os.getenv('NOVNC_PROXY_AUTH_PASSWORD', 'novnc')
+NOVNC_JWE_SECRET = os.getenv('NOVNC_JWE_SECRET')
+NOVNC_JWE_TOKEN_EXPIRY = int(os.getenv('NOVNC_JWE_TOKEN_EXPIRY', 5))
+NOVNC_PROXY_BASE = os.getenv('NOVNC_PROXY_BASE', 'novnc/')
+NOVNC_JWE_SERVER_PASSWORD = os.getenv('NOVNC_JWE_SERVER_PASSWORD', '')
 
 BRANDING = {
     "SERVICE_PROVIDED_BY": {

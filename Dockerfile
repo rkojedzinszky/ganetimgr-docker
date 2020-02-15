@@ -1,8 +1,8 @@
 FROM alpine
 
-MAINTAINER Richard Kojedzinszky <krichy@nmdps.net>
+MAINTAINER Richard Kojedzinszky <richard@kojedz.in>
 
-ENV GANETIMGR_VERSION=py3
+ENV GANETIMGR_VERSION=novnc-jwe
 
 ENV APP_HOME=/srv/ganetimgr APP_USER=ganetimgr
 
@@ -23,13 +23,14 @@ RUN apk --no-cache add \
 	uwsgi-cheaper_busyness \
 	openssl \
 	libcurl \
-	python3 && \
+	python3 py3-psycopg2 && \
 	ln -sf python3 /usr/bin/python && ln -sf pip3 /usr/bin/pip
 
 # install additional python modules
 RUN apk --no-cache add -t .build-deps \
         make gcc libc-dev python3-dev libffi-dev openssl-dev curl-dev && \
-    pip install --no-cache-dir --no-compile supervisor -r requirements.txt && \
+    pip install --no-cache-dir --no-compile supervisor python-memcached \
+    -r requirements.txt && \
     apk del .build-deps
 
 # Add static files
@@ -39,14 +40,13 @@ ADD assets/ /
 RUN cp ganetimgr/settings.py.dist ganetimgr/settings.py && \
     ( \
         echo "" && \
-	echo "from docker_settings import *" \
+	echo "from environment_settings import *" \
     ) >> ganetimgr/settings.py && \
     ln -s /data/local_settings.py local_settings.py && \
     python manage.py collectstatic --noinput -l
 
 # Prepare data directory
 RUN mkdir /data && adduser -D -H -h $APP_HOME $APP_USER
-VOLUME /data
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
