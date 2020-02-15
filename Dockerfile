@@ -1,7 +1,8 @@
 FROM alpine
+
 MAINTAINER Richard Kojedzinszky <krichy@nmdps.net>
 
-ENV GANETIMGR_VERSION=master
+ENV GANETIMGR_VERSION=py3
 
 ENV APP_HOME=/srv/ganetimgr APP_USER=ganetimgr
 
@@ -16,27 +17,19 @@ WORKDIR ${APP_HOME}
 
 # install packages
 RUN apk --no-cache add \
-        supervisor \
 	nginx \
 	beanstalkd \
-	uwsgi-python \
+	uwsgi-python3 \
 	uwsgi-cheaper_busyness \
 	openssl \
-	python \
-	py-yaml \
-	py-gevent \
-	py-setproctitle \
-	py-curl \
-	py-requests
+	libcurl \
+	python3 && \
+	ln -sf python3 /usr/bin/python && ln -sf pip3 /usr/bin/pip
 
 # install additional python modules
 RUN apk --no-cache add -t .build-deps \
-        make gcc libc-dev python2-dev libffi-dev openssl-dev py-pip && \
-    pip install --no-cache-dir --no-compile -U \
-        'django<1.9' 'django-registration-redux<2' paramiko python-daemon \
-	recaptcha-client ipaddr beautifulsoup4 beanstalkc python-memcached \
-	jsonfield \
-	&& \
+        make gcc libc-dev python3-dev libffi-dev openssl-dev curl-dev && \
+    pip install --no-cache-dir --no-compile supervisor -r requirements.txt && \
     apk del .build-deps
 
 # Add static files
