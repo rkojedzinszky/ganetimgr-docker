@@ -52,4 +52,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
-EXPOSE 80
+EXPOSE 8080 8088
