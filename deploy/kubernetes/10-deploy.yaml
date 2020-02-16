@@ -1,0 +1,64 @@
+# Deployments
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: memcached
+  name: memcached
+spec:
+  selector:
+    matchLabels:
+      app: memcached
+  template:
+    metadata:
+      labels:
+        app: memcached
+    spec:
+      enableServiceLinks: false
+      containers:
+      - image: memcached:alpine
+        name: memcached
+        ports:
+        - containerPort: 11211
+          protocol: TCP
+        resources:
+          limits:
+            memory: 16Mi
+          requests:
+            cpu: 50m
+      securityContext:
+        runAsGroup: 11211
+        runAsUser: 11211
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ganetimgr
+  name: ganetimgr
+spec:
+  selector:
+    matchLabels:
+      app: ganetimgr
+  template:
+    metadata:
+      labels:
+        app: ganetimgr
+    spec:
+      enableServiceLinks: false
+      containers:
+      - image: rkojedzinszky/ganetimgr-docker
+        name: ganetimgr
+        envFrom:
+        - secretRef:
+            name: ganetimgr
+        - configMapRef:
+            name: ganetimgr
+        ports:
+        - containerPort: 8088
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64M

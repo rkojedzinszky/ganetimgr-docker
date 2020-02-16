@@ -1,0 +1,15 @@
+# Ingresses
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ganetimgr
+spec:
+  rules:
+  # Fill in correct hostname
+  - host: ganetimgr.host.name.local
+    http:
+      paths:
+      - backend:
+          serviceName: ganetimgr
+          servicePort: http

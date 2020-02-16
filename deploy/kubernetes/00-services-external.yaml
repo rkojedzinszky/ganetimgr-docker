@@ -1,0 +1,12 @@
+# Services used externally
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ganetimgr
+spec:
+  ports:
+  - name: http
+    port: 8088
+  selector:
+    app: ganetimgr

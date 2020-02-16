@@ -1,0 +1,30 @@
+# Environment variables
+---
+apiVersion: v1
+data:
+  # Allowed http hosts, comma separated
+  ALLOWED_HOSTS: "example.com"
+
+  # These are defaults, enough to just override values
+  #DBNAME: ganetimgr
+  #DBHOST: postgres
+  #DBUSER: ganetimgr
+  # DBPASSWORD should be specified in Secret
+
+  # Memcached
+  #MEMCACHED_HOST: memcached
+  #MEMCACHED_PORT: "11211"
+
+  # NoVNC proxy
+  #NOVNC_PROXY: "proxy.host:443"
+  #NOVNC_JWE_SECRET should be specified in Secret
+  #NOVNC_JWE_TOKEN_EXPIRY: "5"
+  #NOVNC_PROXY_BASE: "novnc/"
+  #NOVNC_JWE_SERVER_PASSWORD should be specified in Secret
+
+  # Branding
+  #BRANDING_NAME: "EXAMPLE"
+  #BRANDING_URL: "//example.dot.com"
+kind: ConfigMap
+metadata:
+  name: ganetimgr

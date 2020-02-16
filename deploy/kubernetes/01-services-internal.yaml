@@ -1,0 +1,12 @@
+# Services used externally
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memcached
+spec:
+  ports:
+  - name: memcached
+    port: 11211
+  selector:
+    app: memcached
