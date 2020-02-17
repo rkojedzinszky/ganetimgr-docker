@@ -65,6 +65,14 @@ BRANDING = {
     "ANALYTICS_FILE_PATH": ""
 }
 
+#########################
+#                       #
+#      Beanstalkd       #
+#                       #
+#########################
+BEANSTALKD_HOST = os.getenv('BEANSTALKD_HOST', 'beanstalkd')
+BEANSTALKD_PORT = int(os.getenv('BEANSTALKD_PORT', 11300))
+
 del socket, os
 
 try:

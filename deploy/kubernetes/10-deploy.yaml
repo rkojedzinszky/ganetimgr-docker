@@ -35,6 +35,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app: beanstalkd
+  name: beanstalkd
+spec:
+  selector:
+    matchLabels:
+      app: beanstalkd
+  template:
+    metadata:
+      labels:
+        app: beanstalkd
+    spec:
+      enableServiceLinks: false
+      containers:
+      - image: euronetzrt/beanstalkd
+        name: beanstalkd
+        ports:
+        - containerPort: 11300
+          protocol: TCP
+        resources:
+          limits:
+            memory: 16Mi
+          requests:
+            cpu: 50m
+      securityContext:
+        runAsNonRoot: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
     app: ganetimgr
   name: ganetimgr
 spec:

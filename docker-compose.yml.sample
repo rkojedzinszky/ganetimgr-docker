@@ -3,6 +3,8 @@ version: "2"
 services:
   memcached:
     image: memcached
+  beanstalkd:
+    image: euronetzrt/beanstalkd
   ganetimgr:
     image: rkojedzinszky/ganetimgr-docker
     volumes:

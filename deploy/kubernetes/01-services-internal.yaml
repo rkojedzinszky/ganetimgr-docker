@@ -10,3 +10,14 @@ spec:
     port: 11211
   selector:
     app: memcached
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: beanstalkd
+spec:
+  ports:
+  - name: beanstalkd
+    port: 11300
+  selector:
+    app: beanstalkd

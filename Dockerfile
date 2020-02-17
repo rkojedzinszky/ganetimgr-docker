@@ -18,7 +18,6 @@ WORKDIR ${APP_HOME}
 # install packages
 RUN apk --no-cache add \
 	nginx \
-	beanstalkd \
 	uwsgi-python3 \
 	uwsgi-cheaper_busyness \
 	openssl \
