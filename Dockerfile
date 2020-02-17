@@ -22,13 +22,14 @@ RUN apk --no-cache add \
 	uwsgi-cheaper_busyness \
 	openssl \
 	libcurl \
+	libmemcached \
 	python3 py3-psycopg2 && \
 	ln -sf python3 /usr/bin/python && ln -sf pip3 /usr/bin/pip
 
 # install additional python modules
 RUN apk --no-cache add -t .build-deps \
-        make gcc libc-dev python3-dev libffi-dev openssl-dev curl-dev && \
-    pip install --no-cache-dir --no-compile supervisor python-memcached \
+        make gcc libc-dev python3-dev libffi-dev openssl-dev curl-dev libmemcached-dev && \
+    pip install --no-cache-dir --no-compile supervisor pylibmc \
     -r requirements.txt && \
     apk del .build-deps
 
