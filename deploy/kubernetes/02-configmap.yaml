@@ -25,6 +25,10 @@ data:
   # Branding
   #BRANDING_NAME: "EXAMPLE"
   #BRANDING_URL: "//example.dot.com"
+
+  # Beanstalkd
+  #BEANSTALKD_HOST: beanstalkd
+  #BEANSTALKD_PORT: "11300"
 kind: ConfigMap
 metadata:
   name: ganetimgr
