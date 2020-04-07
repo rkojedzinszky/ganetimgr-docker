@@ -1,8 +1,8 @@
-FROM alpine
+FROM alpine:3.11
 
 MAINTAINER Richard Kojedzinszky <richard@kojedz.in>
 
-ENV GANETIMGR_VERSION=novnc-jwe
+ENV GANETIMGR_VERSION=master
 
 ENV APP_HOME=/srv/ganetimgr APP_USER=ganetimgr
 
