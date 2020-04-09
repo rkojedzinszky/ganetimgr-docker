@@ -2,7 +2,7 @@ FROM alpine:3.11
 
 MAINTAINER Richard Kojedzinszky <richard@kojedz.in>
 
-ENV GANETIMGR_VERSION=master
+ENV GANETIMGR_VERSION=v2.3.0
 
 ENV APP_HOME=/srv/ganetimgr APP_USER=ganetimgr
 
