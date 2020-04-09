@@ -20,17 +20,13 @@ RUN apk --no-cache add \
 	nginx \
 	uwsgi-python3 \
 	uwsgi-cheaper_busyness \
-	openssl \
-	libcurl \
-	python3 py3-psycopg2 && \
+	python3 py3-psycopg2 py3-gevent py3-curl py3-cryptography py3-pynacl py3-bcrypt \
+	    py3-setproctitle && \
 	ln -sf python3 /usr/bin/python && ln -sf pip3 /usr/bin/pip
 
 # install additional python modules
-RUN apk --no-cache add -t .build-deps \
-        make gcc libc-dev python3-dev libffi-dev openssl-dev curl-dev && \
-    pip install --no-cache-dir --no-compile supervisor python-memcached \
-    -r requirements.txt && \
-    apk del .build-deps
+RUN pip install --no-cache-dir --no-compile supervisor python-memcached \
+        -r requirements.txt
 
 # Add static files
 ADD assets/ /
