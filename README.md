@@ -14,7 +14,7 @@ Use the sample compose script to start:
 
 For the first time create a user:
 ```bash
-# docker exec -it --rm <container> python manage.py createsuperuser
+# docker exec -it <container> python manage.py createsuperuser
 ```
 
 After it, you can login at http://localhost:8080/, and use you freshly installed ganetimgr.
