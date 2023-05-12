@@ -17,9 +17,7 @@ WORKDIR ${APP_HOME}
 
 # install packages
 RUN apk --no-cache add \
-    nginx \
     uwsgi-python3 \
-    uwsgi-cheaper_busyness \
     py3-psycopg2 py3-gevent py3-curl py3-cryptography py3-pynacl py3-bcrypt \
     py3-setproctitle py3-paramiko py3-ipaddr py3-beautifulsoup4 py3-requests py3-yaml \
     py3-simplejson
@@ -40,11 +38,11 @@ RUN cp ganetimgr/settings.py.dist ganetimgr/settings.py && \
     ln -s /data/local_settings.py local_settings.py && \
     python manage.py collectstatic --noinput -l
 
-# Prepare data directory
-RUN mkdir /data && adduser -D -H -h $APP_HOME $APP_USER
+# Create user & home directory
+RUN adduser -D -H -h $APP_HOME $APP_USER
+
+EXPOSE 8080
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
-
-EXPOSE 8080 8088
