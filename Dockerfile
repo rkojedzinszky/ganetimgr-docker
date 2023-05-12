@@ -45,4 +45,6 @@ EXPOSE 8080
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
+ENV UWSGI_THREADS=4
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
