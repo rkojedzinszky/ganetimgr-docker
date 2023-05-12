@@ -11,7 +11,7 @@ services:
   memcached:
     image: memcached
   beanstalkd:
-    image: euronetzrt/beanstalkd
+    image: ghcr.io/kubernetize/beanstalkd
   ganetimgr:
     image: rkojedzinszky/ganetimgr-docker
     ports:
