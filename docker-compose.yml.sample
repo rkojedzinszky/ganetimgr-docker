@@ -1,6 +1,13 @@
 ---
 version: "2"
 services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ganetimgr
+      POSTGRES_PASSWORD: ganetimgr
+    volumes:
+      - "./ganetimgr/postgres:/var/lib/postgresql"
   memcached:
     image: memcached
   beanstalkd:
@@ -8,10 +15,11 @@ services:
   ganetimgr:
     image: rkojedzinszky/ganetimgr-docker
     volumes:
-      - "${DATA}/ganetimgr/data:/data"
+      - "./ganetimgr/data:/data"
     ports:
-      - "8080:80"
+      - "8080:8088"
     environment:
+      ALLOWED_HOSTS: 'www.company.com'
       BRANDING_NAME: 'Company'
       BRANDING_URL: 'http://www.company.com/'
       NOVNC_PROXY: 'vnc-proxy.company.com:24999'
