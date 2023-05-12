@@ -1,7 +1,8 @@
 # This settings file is used to provide most settings
 # through environment variables
 
-import socket, os
+import socket
+import os
 
 DEBUG = os.getenv('DEBUG') is not None
 TEMPLATE_DEBUG = DEBUG
@@ -19,7 +20,7 @@ DATABASES = {
         'HOST': os.getenv('DBHOST', 'postgres'),
         'USER': os.getenv('DBUSER', 'ganetimgr'),
         'PASSWORD': os.getenv('DBPASSWORD', 'ganetimgr'),
-        #'SCHEMA': '',
+        # 'SCHEMA': '',
 
         'CONN_MAX_AGE': None if os.getenv('DBCONNMAXAGE') == '' else int(os.getenv('DBCONNMAXAGE', '0')),
     }
@@ -30,12 +31,12 @@ MEMCACHED_PORT = os.getenv('MEMCACHED_PORT', '11211')
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-	'LOCATION': '{}:{}'.format(MEMCACHED_HOST, MEMCACHED_PORT),
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '{}:{}'.format(MEMCACHED_HOST, MEMCACHED_PORT),
     }
 }
 
-NOVNC_PROXY = os.getenv('NOVNC_PROXY','vncauthproxy:8888')
+NOVNC_PROXY = os.getenv('NOVNC_PROXY', 'vncauthproxy:8888')
 NOVNC_PROXY_AUTH_USER = os.getenv('NOVNC_PROXY_AUTH_USER', 'novnc')
 NOVNC_PROXY_AUTH_PASSWORD = os.getenv('NOVNC_PROXY_AUTH_PASSWORD', 'novnc')
 NOVNC_JWE_SECRET = os.getenv('NOVNC_JWE_SECRET')
