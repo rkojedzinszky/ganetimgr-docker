@@ -1,36 +1,20 @@
 #!/bin/sh
 
-conditional_link()
-{
-	# create a link from src to dst only if src exists
-	local src="$1" dst="$2"
+retries=5
 
-	if [ -f "$src" ]; then
-		rm -f "$dst"
-		ln -s "$src" "$dst"
-	fi
-}
-
-chown -R $APP_USER: /data
-
-# Fix for favicon and logo
-conditional_link /data/favicon.ico ${APP_HOME}/static/ganetimgr/img/favicon.ico
-conditional_link /data/logo.png ${APP_HOME}/static/ganetimgr/img/logo.png
-
-trials=6
-
-while [ $trials -gt 0 ]; do
-	trials=$((trials - 1))
-	su -c "python manage.py migrate" $APP_USER
-	if [ $? -eq 0 -o $trials -eq 0 ] ; then
+while :; do
+	python manage.py migrate
+	if [ $? -eq 0 -o $retries -eq 0 ] ; then
 		break
 	fi
-	echo "* $(date) Database migration failed, will retry $trials times"
+	retries=$((retries - 1))
+	echo "* $(date) Database migration failed, will retry $retries times"
 	sleep 5
 done
 
-if [ $trials -eq 0 ]; then
+if [ $retries -eq 0 ]; then
 	echo "* Database migration failed"
+	exit 1
 fi
 
 exec "$@"

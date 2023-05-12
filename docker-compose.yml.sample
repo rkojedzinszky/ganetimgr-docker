@@ -14,8 +14,6 @@ services:
     image: euronetzrt/beanstalkd
   ganetimgr:
     image: rkojedzinszky/ganetimgr-docker
-    volumes:
-      - "./ganetimgr/data:/data"
     ports:
       - "8080:8088"
     environment:

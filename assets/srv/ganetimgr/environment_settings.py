@@ -50,9 +50,9 @@ BRANDING = {
         "URL": os.getenv('BRANDING_URL', "//example.dot.com"),
         "SOCIAL_NETWORKS": []
     },
-    "VIDEO": "", # iframe url
-    "LOGO": "/static/ganetimgr/img/logo.png",
-    "FAVICON": "/static/ganetimgr/img/favicon.ico",
+    "VIDEO": "",  # iframe url
+    "LOGO": os.getenv('BRANDING_LOGO_PATH', "/static/ganetimgr/img/logo.png"),
+    "FAVICON": os.getenv('BRANDING_FAVICON_PATH', "/static/ganetimgr/img/favicon.ico"),
     "MOTTO": "virtual private servers",
     "FOOTER_ICONS_IFRAME": False,
     # show the administrative contact
