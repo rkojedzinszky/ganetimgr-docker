@@ -7,10 +7,10 @@ ENV GANETIMGR_VERSION=master
 ENV APP_HOME=/srv/ganetimgr APP_USER=ganetimgr
 
 # extract sources
-RUN apk --no-cache add -t .install-deps curl tar && \
-    mkdir -p ${APP_HOME} && cd ${APP_HOME} && \
-    curl -sL https://github.com/rkojedzinszky/ganetimgr/archive/${GANETIMGR_VERSION}.tar.gz | \
-    tar xzvf - --strip-components=1 && \
+RUN apk --no-cache add -t .install-deps git && \
+    mkdir -p ${APP_HOME} && cd ${APP_HOME}/.. && \
+    git clone --depth 1 -b ${GANETIMGR_VERSION} https://github.com/rkojedzinszky/ganetimgr ganetimgr && \
+    cd ganetimgr && git submodule init && git submodule update && find . -type d -name .git -print0 | xargs -r0 rm -rf && \
     apk del .install-deps
 
 WORKDIR ${APP_HOME}
