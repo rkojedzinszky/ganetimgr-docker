@@ -1,4 +1,4 @@
-FROM ghcr.io/euronetzrt/django:3.18.0
+FROM ghcr.io/euronetzrt/django:3.20.3
 
 LABEL org.opencontainers.image.authors "Richard Kojedzinszky <richard@kojedz.in>"
 
@@ -20,7 +20,7 @@ RUN apk --no-cache add \
     uwsgi-python3 \
     py3-psycopg2 py3-gevent py3-curl py3-cryptography py3-pynacl py3-bcrypt \
     py3-setproctitle py3-paramiko py3-ipaddr py3-beautifulsoup4 py3-requests py3-yaml \
-    py3-simplejson
+    py3-simplejson py3-jwcrypto
 
 # install additional python modules
 RUN pip install --no-cache-dir --no-compile supervisor pymemcache \
@@ -47,4 +47,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ENV UWSGI_THREADS=4
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
